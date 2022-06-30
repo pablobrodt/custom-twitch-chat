@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="chat.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/chance/1.1.8/chance.min.js"></script>
+  <script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+
+  <script>
+    /*
+    * Original code by Cocahh
+    * This is a refactor by me, Plaabo twitch.tv/plaabo
+    */
+    let totalMessages = 0, messagesLimit = 0, nickColorType = "user", removeSelector, addition, customNickColor, channelName,
+    provider;
+    let animationIn = 'bounceIn';
+    let animationOut = 'bounceOut';
+    let hideAfter = 60;
+    let hideCommands = "no";
+    let ignoredUsers = [];
+    let testMessagesIntervalId = null
+    let messagesInterval = 1.5
+
+    const ON_EVENT_RECEIVED = 'onEventReceived'
+    const LISTENERS = {
+      DELETE_MESSAGE: 'delete-message',
+      DELETE_MESSAGES: 'delete-messages',
+      MESSAGE: 'message',
+    }
+
+    function deleteMessage(messageId) {
+      $(`.message-row[data-msgid=${messageId}]`).remove();
+    }
+
+    function deleteUserMessages(userId) {
+      $(`.message-row[data-sender=${userId}]`).remove();
+    }
+
+    function isCommand(text) {
+      return text.startsWith('!')
+    }
+
+    function getBadgesHtmlString(badges) {
+      const badgeHtmlStrings = badges.map(badge => {
+        return `<img alt="" src="${badge.url}" class="badge"> `
+      })
+
+      return badgeHtmlStrings.join('')
+    }
+
+    function getUsernameHtmlString(displayName, displayColor = '') {
+      let username = displayName + ':'
+      let color = ''
+
+      if (nickColorType === 'user') {
+        color = displayColor !== '' ? displayColor : '#' + (md5(username).substr(26))
+      }
+
+      if (nickColorType === 'custom') {
+        color = customNickColor;
+      }
+
+      return `<span style="color:${color}">${username}</span>`
+    }
+
+    function handleUserMessage(eventData) {
+      const {
+        text,
+        nick,
+        badges,
+        displayName,
+        displayColor,
+        isAction,
+        userId,
+        msgId,
+      } = eventData
+      const shouldHideCommands = isCommand(text) && hideCommands === 'yes'
+      const shouldIgnoreUser = ignoredUsers.indexOf(nick) !== -1
+
+      if (shouldHideCommands || shouldIgnoreUser) {
+        return
+      }
+    
+      const badgesHtmlString = getBadgesHtmlString(badges)
+
+      const usernameHtmlString = getUsernameHtmlString(displayName, displayColor)
+
+      const message = attachEmotes(eventData)
+
+      addMessage(
+        usernameHtmlString,
+        badgesHtmlString,
+        message,
+        isAction,
+        userId,
+        msgId
+      )
+    }
+
+    window.addEventListener(ON_EVENT_RECEIVED, function ({ detail }) {
+      const { event, listener } = detail
+
+      const isWidgetButton = event.listener === 'widget-button'
+
+      if (isWidgetButton) {
+        const TEST_MESSAGE = 'testMessage'
+        const START_SENDING_MESSAGES = 'startSendingMessages'
+        const STOP_SENDING_MESSAGES = 'stopSendingMessages'
+
+        switch (event.field) {
+          case TEST_MESSAGE:
+            testMessage()
+            break
+          case START_SENDING_MESSAGES:
+            testMessage()
+            startSendingMessages()
+            break
+          case STOP_SENDING_MESSAGES:
+            stopSendingMessages()
+            break
+        }
+      }
+
+      switch (listener) {
+        case LISTENERS.DELETE_MESSAGE:
+          deleteMessage(event.msgId)
+          break
+        case LISTENERS.DELETE_MESSAGES:
+          deleteUserMessages(event.userId)
+          break
+        case LISTENERS.MESSAGE:
+          handleUserMessage(event.data)
+          break
+      }
+    })
+    
+    window.addEventListener('onWidgetLoad', function (obj) {
+      const fieldData = obj.detail.fieldData;
+      animationIn = fieldData.animationIn;
+      animationOut = fieldData.animationOut;
+      hideAfter = fieldData.hideAfter;
+      messagesLimit = fieldData.messagesLimit;
+      nickColorType = fieldData.nickColor;
+      customNickColor = fieldData.customNickColor;
+      hideCommands = fieldData.hideCommands;
+      channelName = obj.detail.channel.username;
+      messagesInterval = fieldData.messagesInterval;
+      fetch('https://api.streamelements.com/kappa/v2/channels/' + obj.detail.channel.id + '/').then(response => response.json()).then((profile) => {
+        provider = profile.provider;
+      });
+      if (fieldData.alignMessages === "block") {
+        addition = "prepend";
+        removeSelector = ".message-row:nth-child(n+" + (messagesLimit + 1) + ")"
+      } else {
+        addition = "append";
+        removeSelector = ".message-row:nth-last-child(n+" + (messagesLimit + 1) + ")"
+      }
+      
+      ignoredUsers = fieldData.ignoredUsers.toLowerCase().replace(" ", "").split(",");
+    });
+    
+    function attachEmotes(message) {
+      const { text, emotes } = message
+      const encodedText = html_encode(message.text)
+
+      // TODO: find out what the hell is this attachments
+      // if (typeof message.attachment !== "undefined") {
+      //   if (typeof message.attachment.media !== "undefined") {
+      //     if (typeof message.attachment.media.image !== "undefined") {
+      //       text = `${message.text}<img src="${message.attachment.media.image.src}">`;
+      //     }
+      //   }
+      // }
+
+      const words = encodedText.split(' ')
+
+      const wordsAndEmote = words.reduce((acc, word) => {
+        const emote = emotes.find(emote => emote.name === word)
+
+        if (!!emote) {
+          const emoteUrl = emote.urls[1]
+          const emoteHtmlString = `<img class="emote" " src="${emoteUrl}"/>`
+          return [...acc, emoteHtmlString]
+        }
+
+        return [...acc, word]
+      }, [])
+
+      return wordsAndEmote.join(' ')
+    }
+    
+    function html_encode(e) {
+      return e.replace(/[<>"^]/g, function (e) {
+        return "&#" + e.charCodeAt(0) + ";";
+      });
+    }
+    
+    function addMessage(username, badges, message, isAction, uid, msgId) {
+      totalMessages += 1;
+      let actionClass = "";
+      if (isAction) {
+        actionClass = "action";
+      }
+      const element = $.parseHTML(`
+      <div data-sender="${uid}" data-msgid="${msgId}" class="message-row {animationIn} animated" id="msg-${totalMessages}">
+        <div class="user-box ${actionClass}">${badges}${username}</div>
+        <div class="user-message ${actionClass}">${message}</div>
+      </div>`);
+      if (addition === "append") {
+        if (hideAfter !== 999) {
+          $(element).appendTo('.main-container').delay(hideAfter * 1000).queue(function () {
+            $(this).removeClass(animationIn).addClass(animationOut).delay(1000).queue(function () {
+              $(this).remove()
+            }).dequeue();
+          });
+        } else {
+          $(element).appendTo('.main-container');
+        }
+      } else {
+        if (hideAfter !== 999) {
+          $(element).prependTo('.main-container').delay(hideAfter * 1000).queue(function () {
+            $(this).removeClass(animationIn).addClass(animationOut).delay(1000).queue(function () {
+              $(this).remove()
+            }).dequeue();
+          });
+        } else {
+          $(element).prependTo('.main-container');
+        }
+      }
+      
+      if (totalMessages > messagesLimit) {
+        removeRow();
+      }
+    }
+    
+    function removeRow() {
+      if (!$(removeSelector).length) {
+        return;
+      }
+      if (animationOut !== "none" || !$(removeSelector).hasClass(animationOut)) {
+        if (hideAfter !== 999) {
+          $(removeSelector).dequeue();
+        } else {
+          $(removeSelector).addClass(animationOut).delay(1000).queue(function () {
+            $(this).remove().dequeue()
+          });
+          
+        }
+        return;
+      }
+      
+      $(removeSelector).animate({
+        height: 0,
+        opacity: 0
+      }, 'slow', function () {
+        $(removeSelector).remove();
+      });
+    }
+    
+    function testMessage() {
+      const fakeChannelName = chance.name()
+      const words = chance.integer({ min: 1, max: 10 })
+      const fakeSentence = chance.sentence({ words })
+
+      let emulated = new CustomEvent(ON_EVENT_RECEIVED, {
+        detail: {
+          listener: "message",
+          event: {
+            service: "twitch",
+            data: {
+              time: Date.now(),
+              tags: {
+                "badge-info": "",
+                badges: "moderator/1,partner/1",
+                color: "#5B99FF",
+                "display-name": "StreamElements",
+                emotes: "25:46-50",
+                flags: "",
+                id: "43285909-412c-4eee-b80d-89f72ba53142",
+                mod: "1",
+                "room-id": "85827806",
+                subscriber: "0",
+                "tmi-sent-ts": "1579444549265",
+                turbo: "0",
+                "user-id": "100135110",
+                "user-type": "mod"
+              },
+              nick: fakeChannelName,
+              userId: "100135110",
+              displayName: fakeChannelName, //channelName,
+              displayColor: "#5B99FF",
+              badges: [{
+                type: "moderator",
+                version: "1",
+                url: "https://static-cdn.jtvnw.net/badges/v1/3267646d-33f0-4b17-b3df-f923a41db1d0/3",
+                description: "Moderator"
+              }, {
+                type: "partner",
+                version: "1",
+                url: "https://static-cdn.jtvnw.net/badges/v1/d12a2e27-16f6-41d0-ab77-b780518f00a3/3",
+                description: "Verified"
+              }],
+              channel: fakeChannelName,
+              text: fakeSentence,
+              isAction: !1,
+              emotes: [{
+                type: "twitch",
+                name: "Kappa",
+                id: "25",
+                gif: !1,
+                urls: {
+                  1: "https://static-cdn.jtvnw.net/emoticons/v1/25/1.0",
+                  2: "https://static-cdn.jtvnw.net/emoticons/v1/25/1.0",
+                  4: "https://static-cdn.jtvnw.net/emoticons/v1/25/3.0"
+                },
+                start: 46,
+                end: 50
+              }],
+              msgId: "43285909-412c-4eee-b80d-89f72ba53142"
+            },
+            renderedText: 'Howdy! My name is Bill and I am here to serve <img src="https://static-cdn.jtvnw.net/emoticons/v1/25/1.0" srcset="https://static-cdn.jtvnw.net/emoticons/v1/25/1.0 1x, https://static-cdn.jtvnw.net/emoticons/v1/25/1.0 2x, https://static-cdn.jtvnw.net/emoticons/v1/25/3.0 4x" title="Kappa" class="emote">'
+          }
+        }
+      });
+      window.dispatchEvent(emulated);
+    }
+  
+    function startSendingMessages() {
+      console.log(`starting to send messages in a ${messagesInterval} seconds interval`)
+
+      const intervalInMilliseconds = messagesInterval * 1000
+
+      testMessagesIntervalId = setInterval(() => {
+        testMessage()
+      }, intervalInMilliseconds)
+    }
+
+    function stopSendingMessages() {
+      console.log(`stopped sending messages`)
+      if (!!testMessagesIntervalId) {
+        clearInterval(testMessagesIntervalId)
+      }
+    }
+  </script>
+</head>
+<body>
+  <button onclick="testMessage()">Enviar mensagem</button>
+  <button onclick="startSendingMessages()">Começar a enviar mensagens</button>
+  <button onclick="stopSendingMessages()">Parar de enviar mensagens</button>
+  <div class="main-container"></div>
+</body>
+</html>
