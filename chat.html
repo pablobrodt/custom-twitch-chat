@@ -4,6 +4,7 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
+
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,32 +14,47 @@
   <link rel="stylesheet" href="chat.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chance/1.1.8/chance.min.js"></script>
-  <script
-  src="https://code.jquery.com/jquery-3.6.0.min.js"
-  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-  crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
   <script>
     /*
     * Original code by Cocahh
     * This is a refactor by me, Plaabo twitch.tv/plaabo
     */
-    let totalMessages = 0, messagesLimit = 0, nickColorType = "user", removeSelector, addition, customNickColor, channelName,
-    provider;
-    let animationIn = 'bounceIn';
-    let animationOut = 'bounceOut';
-    let hideAfter = 60;
-    let hideCommands = "no";
-    let ignoredUsers = [];
-    let testMessagesIntervalId = null
-    let messagesInterval = 1.5
-
-    const ON_EVENT_RECEIVED = 'onEventReceived'
+    const CONTAINER_SELECTOR = '.main-container'
+    const EVENTS = {
+      ON_WIDGET_LOAD: 'onWidgetLoad',
+      ON_EVENT_RECEIVED: 'onEventReceived',
+    }
     const LISTENERS = {
       DELETE_MESSAGE: 'delete-message',
       DELETE_MESSAGES: 'delete-messages',
       MESSAGE: 'message',
     }
+    const ADDITIONS = {
+      APPEND: 'append',
+      PREPEND: 'prepend',
+    }
+
+    let totalMessages = 0
+    let removeSelector = null
+    let addition = ADDITIONS.PREPEND
+    let channelName = null
+    let provider = null
+    let ignoredUsers = []
+    let testMessagesIntervalId = null
+    let shouldHideMessagesAfterDelay = true
+
+    // params from streamelements fields
+    let animationIn = 'bounceIn'
+    let animationOut = 'bounceOut'
+    let hideAfter = 10
+    let messagesLimit = 10
+    let nickColorType = 'user'
+    let customNickColor = null
+    let hideCommands = 'no'
+    let messagesInterval = 1.5
 
     function deleteMessage(messageId) {
       $(`.message-row[data-msgid=${messageId}]`).remove();
@@ -92,7 +108,7 @@
       if (shouldHideCommands || shouldIgnoreUser) {
         return
       }
-    
+
       const badgesHtmlString = getBadgesHtmlString(badges)
 
       const usernameHtmlString = getUsernameHtmlString(displayName, displayColor)
@@ -109,7 +125,7 @@
       )
     }
 
-    window.addEventListener(ON_EVENT_RECEIVED, function ({ detail }) {
+    window.addEventListener(EVENTS.ON_EVENT_RECEIVED, function ({ detail }) {
       const { event, listener } = detail
 
       const isWidgetButton = event.listener === 'widget-button'
@@ -145,32 +161,39 @@
           break
       }
     })
-    
-    window.addEventListener('onWidgetLoad', function (obj) {
-      const fieldData = obj.detail.fieldData;
-      animationIn = fieldData.animationIn;
-      animationOut = fieldData.animationOut;
-      hideAfter = fieldData.hideAfter;
-      messagesLimit = fieldData.messagesLimit;
-      nickColorType = fieldData.nickColor;
-      customNickColor = fieldData.customNickColor;
-      hideCommands = fieldData.hideCommands;
-      channelName = obj.detail.channel.username;
-      messagesInterval = fieldData.messagesInterval;
-      fetch('https://api.streamelements.com/kappa/v2/channels/' + obj.detail.channel.id + '/').then(response => response.json()).then((profile) => {
-        provider = profile.provider;
-      });
+
+    // TODO: refact
+    window.addEventListener(EVENTS.ON_WIDGET_LOAD, function (obj) {
+      const fieldData = obj.detail.fieldData
+      animationIn = fieldData.animationIn
+      animationOut = fieldData.animationOut
+      hideAfter = fieldData.hideAfter
+      messagesLimit = fieldData.messagesLimit
+      nickColorType = fieldData.nickColor
+      customNickColor = fieldData.customNickColor
+      hideCommands = fieldData.hideCommands
+      channelName = obj.detail.channel.username
+      messagesInterval = fieldData.messagesInterval
+
+      shouldHideMessagesAfterDelay = hideAfter !== 999
+
+      fetch('https://api.streamelements.com/kappa/v2/channels/' + obj.detail.channel.id + '/')
+        .then(response => response.json())
+        .then((profile) => {
+          provider = profile.provider
+        })
+
       if (fieldData.alignMessages === "block") {
-        addition = "prepend";
+        addition = ADDITIONS.PREPEND
         removeSelector = ".message-row:nth-child(n+" + (messagesLimit + 1) + ")"
       } else {
-        addition = "append";
+        addition = ADDITIONS.APPEND
         removeSelector = ".message-row:nth-last-child(n+" + (messagesLimit + 1) + ")"
       }
-      
-      ignoredUsers = fieldData.ignoredUsers.toLowerCase().replace(" ", "").split(",");
+
+      ignoredUsers = fieldData.ignoredUsers.toLowerCase().replace(" ", "").split(",")
     });
-    
+
     function attachEmotes(message) {
       const { text, emotes } = message
       const encodedText = html_encode(message.text)
@@ -189,6 +212,7 @@
       const wordsAndEmote = words.reduce((acc, word) => {
         const emote = emotes.find(emote => emote.name === word)
 
+        // TODO: find a better name for acc variable
         if (!!emote) {
           const emoteUrl = emote.urls[1]
           const emoteHtmlString = `<img class="emote" " src="${emoteUrl}"/>`
@@ -200,81 +224,100 @@
 
       return wordsAndEmote.join(' ')
     }
-    
+
     function html_encode(e) {
       return e.replace(/[<>"^]/g, function (e) {
         return "&#" + e.charCodeAt(0) + ";";
       });
     }
-    
-    function addMessage(username, badges, message, isAction, uid, msgId) {
-      totalMessages += 1;
-      let actionClass = "";
+
+    function removeElementFromDOM(jqueryElement) {
+      jqueryElement
+        .delay(1000)
+        .queue(() => {
+          jqueryElement.remove()
+        })
+        .dequeue()
+    }
+
+    function doAnimationOut(jqueryElement) {
+      if (shouldHideMessagesAfterDelay) {
+        jqueryElement
+          .delay(hideAfter * 1000)
+          .queue(() => {
+            jqueryElement.removeClass(animationIn).addClass(animationOut)
+
+            removeElementFromDOM(jqueryElement)
+          })
+      }
+    }
+
+    function appendMessageRow(messageRowElement) {
+      const jqueryElement = $(messageRowElement).appendTo(CONTAINER_SELECTOR)
+
+      doAnimationOut(jqueryElement)
+    }
+
+    function prependMessageRow(messageRowElement) {
+      const jqueryElement = $(messageRowElement).prependTo(CONTAINER_SELECTOR)
+
+      doAnimationOut(jqueryElement)
+    }
+
+    function addMessage(username, badges, message, isAction, userId, messageId) {
+      totalMessages += 1
+      let actionClass = ""
+
+      // TODO: find out what is this action class stuff
       if (isAction) {
-        actionClass = "action";
+        actionClass = "action"
       }
-      const element = $.parseHTML(`
-      <div data-sender="${uid}" data-msgid="${msgId}" class="message-row {animationIn} animated" id="msg-${totalMessages}">
-        <div class="user-box ${actionClass}">${badges}${username}</div>
-        <div class="user-message ${actionClass}">${message}</div>
-      </div>`);
-      if (addition === "append") {
-        if (hideAfter !== 999) {
-          $(element).appendTo('.main-container').delay(hideAfter * 1000).queue(function () {
-            $(this).removeClass(animationIn).addClass(animationOut).delay(1000).queue(function () {
-              $(this).remove()
-            }).dequeue();
-          });
-        } else {
-          $(element).appendTo('.main-container');
-        }
-      } else {
-        if (hideAfter !== 999) {
-          $(element).prependTo('.main-container').delay(hideAfter * 1000).queue(function () {
-            $(this).removeClass(animationIn).addClass(animationOut).delay(1000).queue(function () {
-              $(this).remove()
-            }).dequeue();
-          });
-        } else {
-          $(element).prependTo('.main-container');
-        }
+
+      const messageRowElement = $.parseHTML(`
+        <div data-sender="${userId}" data-msgid="${messageId}" class="message-row {animationIn} animated" id="msg-${totalMessages}">
+          <div class="user-box ${actionClass}">${badges}${username}</div>
+          <div class="user-message ${actionClass}">${message}</div>
+        </div>
+      `)
+
+      switch (addition) {
+        case 'append': appendMessageRow(messageRowElement)
+          break
+        case 'prepend': prependMessageRow(messageRowElement)
+          break
       }
-      
+
       if (totalMessages > messagesLimit) {
-        removeRow();
+        removeRow()
       }
     }
-    
+
+    // TODO: refact
     function removeRow() {
-      if (!$(removeSelector).length) {
-        return;
+      const rowToRemove = $(removeSelector)
+
+      if (!rowToRemove) {
+        return
       }
-      if (animationOut !== "none" || !$(removeSelector).hasClass(animationOut)) {
-        if (hideAfter !== 999) {
-          $(removeSelector).dequeue();
+
+      const rowDontHaveAnimationOutClass = !rowToRemove.hasClass(animationOut)
+      const hasAnimationOutSet = animationOut !== "none"
+
+      if (hasAnimationOutSet || rowDontHaveAnimationOutClass) {
+        if (shouldHideMessagesAfterDelay) {
+          $(rowToRemove).dequeue()
         } else {
-          $(removeSelector).addClass(animationOut).delay(1000).queue(function () {
-            $(this).remove().dequeue()
-          });
-          
+          rowToRemove.remove()
         }
-        return;
       }
-      
-      $(removeSelector).animate({
-        height: 0,
-        opacity: 0
-      }, 'slow', function () {
-        $(removeSelector).remove();
-      });
     }
-    
+
     function testMessage() {
       const fakeChannelName = chance.name()
       const words = chance.integer({ min: 1, max: 10 })
       const fakeSentence = chance.sentence({ words })
 
-      let emulated = new CustomEvent(ON_EVENT_RECEIVED, {
+      let emulated = new CustomEvent(EVENTS.ON_EVENT_RECEIVED, {
         detail: {
           listener: "message",
           event: {
@@ -336,7 +379,7 @@
       });
       window.dispatchEvent(emulated);
     }
-  
+
     function startSendingMessages() {
       console.log(`starting to send messages in a ${messagesInterval} seconds interval`)
 
@@ -353,12 +396,41 @@
         clearInterval(testMessagesIntervalId)
       }
     }
+
+    function fakeLoadWidget() {
+      let customWidgetLoadEvent = new CustomEvent(EVENTS.ON_WIDGET_LOAD, {
+        detail: {
+          channel: {
+            username: 'Plaabo',
+            id: '5f85fd312fdac041aadbb69c',
+          },
+          fieldData: {
+            animationIn: 'bounceIn',
+            animationOut: 'bounceOut',
+            hideAfter: 5, // 999 disable
+            messagesLimit: 4,
+            nickColor: 'user',
+            customNickColor: 'red',
+            hideCommands: 'no',
+            alignMessages: 'block', // flex
+            ignoredUsers: '',
+            messagesInterval: 2,
+          }
+        }
+      })
+
+      window.dispatchEvent(customWidgetLoadEvent)
+    }
+
   </script>
 </head>
+
 <body>
   <button onclick="testMessage()">Enviar mensagem</button>
   <button onclick="startSendingMessages()">Começar a enviar mensagens</button>
   <button onclick="stopSendingMessages()">Parar de enviar mensagens</button>
+  <button onclick="fakeLoadWidget()">Disparar efeito de load falso</button>
   <div class="main-container"></div>
 </body>
+
 </html>
