@@ -98,7 +98,6 @@
         badges,
         displayName,
         displayColor,
-        isAction,
         userId,
         msgId,
       } = eventData
@@ -119,7 +118,6 @@
         usernameHtmlString,
         badgesHtmlString,
         message,
-        isAction,
         userId,
         msgId
       )
@@ -198,28 +196,18 @@
       const { text, emotes } = message
       const encodedText = html_encode(message.text)
 
-      // TODO: find out what the hell is this attachments
-      // if (typeof message.attachment !== "undefined") {
-      //   if (typeof message.attachment.media !== "undefined") {
-      //     if (typeof message.attachment.media.image !== "undefined") {
-      //       text = `${message.text}<img src="${message.attachment.media.image.src}">`;
-      //     }
-      //   }
-      // }
-
       const words = encodedText.split(' ')
 
-      const wordsAndEmote = words.reduce((acc, word) => {
+      const wordsAndEmote = words.reduce((emoteUrlStrings, word) => {
         const emote = emotes.find(emote => emote.name === word)
 
-        // TODO: find a better name for acc variable
         if (!!emote) {
           const emoteUrl = emote.urls[1]
           const emoteHtmlString = `<img class="emote" " src="${emoteUrl}"/>`
-          return [...acc, emoteHtmlString]
+          return [...emoteUrlStrings, emoteHtmlString]
         }
 
-        return [...acc, word]
+        return [...emoteUrlStrings, word]
       }, [])
 
       return wordsAndEmote.join(' ')
@@ -264,26 +252,20 @@
       doAnimationOut(jqueryElement)
     }
 
-    function addMessage(username, badges, message, isAction, userId, messageId) {
+    function addMessage(username, badges, message, userId, messageId) {
       totalMessages += 1
-      let actionClass = ""
-
-      // TODO: find out what is this action class stuff
-      if (isAction) {
-        actionClass = "action"
-      }
 
       const messageRowElement = $.parseHTML(`
         <div data-sender="${userId}" data-msgid="${messageId}" class="message-row {animationIn} animated" id="msg-${totalMessages}">
-          <div class="user-box ${actionClass}">${badges}${username}</div>
-          <div class="user-message ${actionClass}">${message}</div>
+          <div class="user-name">${badges}${username}</div>
+          <div class="user-message">${message}</div>
         </div>
       `)
 
       switch (addition) {
-        case 'append': appendMessageRow(messageRowElement)
+        case ADDITIONS.APPEND: appendMessageRow(messageRowElement)
           break
-        case 'prepend': prependMessageRow(messageRowElement)
+        case ADDITIONS.PREPEND: prependMessageRow(messageRowElement)
           break
       }
 
@@ -292,7 +274,6 @@
       }
     }
 
-    // TODO: refact
     function removeRow() {
       const rowToRemove = $(removeSelector)
 
@@ -407,8 +388,8 @@
           fieldData: {
             animationIn: 'bounceIn',
             animationOut: 'bounceOut',
-            hideAfter: 5, // 999 disable
-            messagesLimit: 4,
+            hideAfter: 999, // 999 disable
+            messagesLimit: 10,
             nickColor: 'user',
             customNickColor: 'red',
             hideCommands: 'no',
@@ -422,6 +403,9 @@
       window.dispatchEvent(customWidgetLoadEvent)
     }
 
+    fakeLoadWidget()
+    startSendingMessages()
+    setTimeout(() => stopSendingMessages(), 2000)
   </script>
 </head>
 
@@ -430,7 +414,10 @@
   <button onclick="startSendingMessages()">Começar a enviar mensagens</button>
   <button onclick="stopSendingMessages()">Parar de enviar mensagens</button>
   <button onclick="fakeLoadWidget()">Disparar efeito de load falso</button>
-  <div class="main-container"></div>
+  <div class="chat-container">
+    <h2 class="title">{{title}}</h2>
+    <div class="main-container"></div>
+  </div>
 </body>
 
 </html>
