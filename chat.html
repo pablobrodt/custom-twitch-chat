@@ -23,6 +23,11 @@
     * This is a refactor by me, Plaabo twitch.tv/plaabo
     */
     const CONTAINER_SELECTOR = '.main-container'
+    const FIXED_TEST_MESSAGE_CLASS = 'fixed-test-message'
+    const KEEP_A_TEST_MESSAGE = {
+      YES: 'yes',
+      NO: 'no',
+    }
     const EVENTS = {
       ON_WIDGET_LOAD: 'onWidgetLoad',
       ON_EVENT_RECEIVED: 'onEventReceived',
@@ -55,6 +60,7 @@
     let customNickColor = null
     let hideCommands = 'no'
     let messagesInterval = 1.5
+    let keepATestMessage = false
 
     function deleteMessage(messageId) {
       $(`.message-row[data-msgid=${messageId}]`).remove();
@@ -160,7 +166,6 @@
       }
     })
 
-    // TODO: refact
     window.addEventListener(EVENTS.ON_WIDGET_LOAD, function (obj) {
       const fieldData = obj.detail.fieldData
       animationIn = fieldData.animationIn
@@ -172,6 +177,7 @@
       hideCommands = fieldData.hideCommands
       channelName = obj.detail.channel.username
       messagesInterval = fieldData.messagesInterval
+      keepATestMessage = fieldData.keepATestMessage
 
       shouldHideMessagesAfterDelay = hideAfter !== 999
 
@@ -190,11 +196,17 @@
       }
 
       ignoredUsers = fieldData.ignoredUsers.toLowerCase().replace(" ", "").split(",")
+
+      console.log('@@@@@ keepATestMessage', keepATestMessage, fieldData.keepATestMessage)
+
+      if (keepATestMessage) {
+        putFixedTestMessage()
+      }
     });
 
     function attachEmotes(message) {
       const { text, emotes } = message
-      const encodedText = html_encode(message.text)
+      const encodedText = html_encode(text)
 
       const words = encodedText.split(' ')
 
@@ -256,7 +268,12 @@
       totalMessages += 1
 
       const messageRowElement = $.parseHTML(`
-        <div data-sender="${userId}" data-msgid="${messageId}" class="message-row {animationIn} animated" id="msg-${totalMessages}">
+        <div
+          data-sender="${userId}"
+          data-msgid="${messageId}"
+          class="message-row {animationIn} animated"
+          id="msg-${totalMessages}"
+        >
           <div class="user-name">${badges}${username}</div>
           <div class="user-message">${message}</div>
         </div>
@@ -361,6 +378,53 @@
       window.dispatchEvent(emulated);
     }
 
+    function putFixedTestMessage() {
+      const fakeBadges = [{
+        type: "moderator",
+        version: "1",
+        url: "https://static-cdn.jtvnw.net/badges/v1/3267646d-33f0-4b17-b3df-f923a41db1d0/3",
+        description: "Moderator"
+      }, {
+        type: "partner",
+        version: "1",
+        url: "https://static-cdn.jtvnw.net/badges/v1/d12a2e27-16f6-41d0-ab77-b780518f00a3/3",
+        description: "Verified"
+      }]
+      const badges = getBadgesHtmlString(fakeBadges)
+
+      const fakeMessage = {
+        text: 'Teste teste do teste testando teste Kappa',
+        emotes: [{
+          type: "twitch",
+          name: "Kappa",
+          id: "25",
+          gif: !1,
+          urls: {
+            1: "https://static-cdn.jtvnw.net/emoticons/v1/25/1.0",
+            2: "https://static-cdn.jtvnw.net/emoticons/v1/25/1.0",
+            4: "https://static-cdn.jtvnw.net/emoticons/v1/25/3.0"
+          },
+          start: 46,
+          end: 50
+        }],
+      }
+      const message = attachEmotes(fakeMessage)
+
+      const messageRowElement = $.parseHTML(`
+        <div
+          data-sender="171"
+          data-msgid="171"
+          class="message-row ${FIXED_TEST_MESSAGE_CLASS}"
+          id="msg-171"
+        >
+          <div class="user-name">${badges}Teste</div>
+          <div class="user-message">${message}</div>
+        </div>
+      `)
+
+      $(messageRowElement).appendTo(CONTAINER_SELECTOR)
+    }
+
     function startSendingMessages() {
       console.log(`starting to send messages in a ${messagesInterval} seconds interval`)
 
@@ -388,7 +452,7 @@
           fieldData: {
             animationIn: 'bounceIn',
             animationOut: 'bounceOut',
-            hideAfter: 999, // 999 disable
+            hideAfter: 3, // 999 disable
             messagesLimit: 10,
             nickColor: 'user',
             customNickColor: 'red',
@@ -396,6 +460,7 @@
             alignMessages: 'block', // flex
             ignoredUsers: '',
             messagesInterval: 2,
+            keepATestMessage: false,
           }
         }
       })
@@ -404,8 +469,6 @@
     }
 
     fakeLoadWidget()
-    startSendingMessages()
-    setTimeout(() => stopSendingMessages(), 2000)
   </script>
 </head>
 

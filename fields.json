@@ -7,25 +7,25 @@
       "none": "No",
       "flex": "Yes"
     },
-    "group": "Title Style"
+    "group": "Title"
   },
   "title": {
     "type": "text",
     "label": "Title",
     "value": "Chat",
-    "group": "Title Style"
+    "group": "Title"
   },
   "titleMarginBottom": {
     "type": "number",
     "label": "Margin Bottom",
     "value": 0,
-    "group": "Title Style"
+    "group": "Title"
   },
   "titleBorderColor": {
     "type": "colorpicker",
     "label": "Border Color",
     "value": "rgba(0,0,0,1)",
-    "group": "Title Style"
+    "group": "Title"
   },
   "titleBorderStyle": {
     "type": "dropdown",
@@ -42,55 +42,55 @@
       "inset": "Inset",
       "outset": "Outset"
     },
-    "group": "Title Style"
+    "group": "Title"
   },
   "titleBorderTop": {
     "type": "number",
     "label": "Border Top",
     "value": 0,
-    "group": "Title Style"
+    "group": "Title"
   },
   "titleBorderRight": {
     "type": "number",
     "label": "Border Right",
     "value": 0,
-    "group": "Title Style"
+    "group": "Title"
   },
   "titleBorderBottom": {
     "type": "number",
     "label": "Border Bottom",
     "value": 0,
-    "group": "Title Style"
+    "group": "Title"
   },
   "titleBorderLeft": {
     "type": "number",
     "label": "Border Left",
     "value": 0,
-    "group": "Title Style"
+    "group": "Title"
   },
   "titleBorderRadius": {
     "type": "number",
     "label": "Border Radius",
     "value": 0,
-    "group": "Title Style"
+    "group": "Title"
   },
   "titleBackgroundColor": {
     "type": "colorpicker",
     "label": "Background Color",
     "value": "rgba(255,255,255,0)",
-    "group": "Title Style"
+    "group": "Title"
   },
   "titleFontSize": {
     "type": "number",
     "label": "Font Size",
     "value": 30,
-    "group": "Title Style"
+    "group": "Title"
   },
   "titleColor": {
     "type": "colorpicker",
     "label": "Color",
     "value": "rgba(0,0,0,1)",
-    "group": "Title Style"
+    "group": "Title"
   },
   "titleAlign": {
     "type": "dropdown",
@@ -101,15 +101,293 @@
       "center": "Center",
       "flex-end": "Right"
     },
-    "group": "Title Style"
+    "group": "Title"
   },
   "titlePadding": {
     "type": "number",
     "label": "Padding",
     "value": 0,
-    "group": "Title Style"
+    "group": "Title"
+  },
+  "titleTextShadowColor": {
+    "type": "colorpicker",
+    "label": "Shadow Color",
+    "value": "rgba(0,0,0,1)",
+    "group": "Title"
+  },
+  "titleTextShadowY": {
+    "label": "Shadow Vertical Position",
+    "type": "slider",
+    "max": 25,
+    "min": -25,
+    "step": 1,
+    "value": 0,
+    "group": "Title"
+  },
+  "titleTextShadowX": {
+    "label": "Shadow Horizontal Position",
+    "type": "slider",
+    "max": 25,
+    "min": -25,
+    "step": 1,
+    "value": 0,
+    "group": "Title"
+  },
+  "titleTextShadowBlur": {
+    "label": "Shadow Blur",
+    "type": "slider",
+    "max": 25,
+    "min": 0,
+    "step": 1,
+    "value": 0,
+    "group": "Title"
   },
 
+  "messageContainerDirection": {
+    "label": "Direction",
+    "type": "dropdown",
+    "value": "column",
+    "options": {
+      "row": "Row",
+      "column": "Column"
+    },
+    "group": "Message Container"
+  },
+  "messageContainerBackgroundColor": {
+    "type": "colorpicker",
+    "label": "Background Color",
+    "value": "rgba(255,255,255,1)",
+    "group": "Message Container"
+  },
+  "messageContainerBorderStyle": {
+    "type": "dropdown",
+    "label": "Border Style",
+    "value": "none",
+    "options": {
+      "none": "None",
+      "dotted": "Dotted",
+      "dashed": "Dashed",
+      "solid": "Solid",
+      "double": "Double",
+      "groove": "Groove",
+      "ridge": "Ridge",
+      "inset": "Inset",
+      "outset": "Outset"
+    },
+    "group": "Message Container"
+  },
+  "messageContainerBorderTop": {
+    "type": "number",
+    "label": "Border Top",
+    "value": 0,
+    "group": "Message Container"
+  },
+  "messageContainerBorderRight": {
+    "type": "number",
+    "label": "Border Right",
+    "value": 0,
+    "group": "Message Container"
+  },
+  "messageContainerBorderBottom": {
+    "type": "number",
+    "label": "Border Bottom",
+    "value": 0,
+    "group": "Message Container"
+  },
+  "messageContainerBorderLeft": {
+    "type": "number",
+    "label": "Border Left",
+    "value": 0,
+    "group": "Message Container"
+  },
+  "messageContainerBorderRadius": {
+    "type": "number",
+    "label": "Border Radius",
+    "value": 0,
+    "group": "Message Container"
+  },
+  "messageContainerBorderColor": {
+    "type": "colorpicker",
+    "label": "Border Color",
+    "value": "rgba(255,255,255,1)",
+    "group": "Message Container"
+  },
+  "messageContainerPadding": {
+    "type": "number",
+    "label": "Padding",
+    "value": 0,
+    "group": "Message Container"
+  },
+  "messageContainerMarginTop": {
+    "type": "number",
+    "label": "Margin Top",
+    "value": 0,
+    "group": "Message Container"
+  },
+  "messageContainerMarginBottom": {
+    "type": "number",
+    "label": "Margin Bottom",
+    "value": 0,
+    "group": "Message Container"
+  },
+
+  "userNameMarginRight": {
+    "type": "number",
+    "label": "Margin Right",
+    "value": 0,
+    "group": "User Name"
+  },
+  "userNameVerticalAlign": {
+    "type": "dropdown",
+    "label": "Vertical Align",
+    "value": "center",
+    "options": {
+      "flex-start": "Top",
+      "center": "Center",
+      "flex-end": "Bottom"
+    },
+    "group": "User Name"
+  },
+  "userNameHorizontalAlign": {
+    "type": "dropdown",
+    "label": "Horizontal Align",
+    "value": "flex-start",
+    "options": {
+      "flex-start": "Left",
+      "center": "Center",
+      "flex-end": "Right"
+    },
+    "group": "User Name"
+  },
+  "userNameTopPosition": {
+    "type": "number",
+    "label": "Top Position",
+    "value": 0,
+    "group": "User Name"
+  },
+  "userNameRightpPosition": {
+    "type": "number",
+    "label": "Left Position",
+    "value": 0,
+    "group": "User Name"
+  },
+  "userNameBorderStyle": {
+    "type": "dropdown",
+    "label": "Border Style",
+    "value": "none",
+    "options": {
+      "none": "None",
+      "dotted": "Dotted",
+      "dashed": "Dashed",
+      "solid": "Solid",
+      "double": "Double",
+      "groove": "Groove",
+      "ridge": "Ridge",
+      "inset": "Inset",
+      "outset": "Outset"
+    },
+    "group": "User Name"
+  },
+  "userNameBorderTopWidth": {
+    "type": "number",
+    "label": "Border Top",
+    "value": 0,
+    "group": "User Name"
+  },
+  "userNameBorderRightWidth": {
+    "type": "number",
+    "label": "Border Right",
+    "value": 0,
+    "group": "User Name"
+  },
+  "userNameBorderBottomWidth": {
+    "type": "number",
+    "label": "Border Bottom",
+    "value": 0,
+    "group": "User Name"
+  },
+  "userNameBorderLeftWidth": {
+    "type": "number",
+    "label": "Border Left",
+    "value": 0,
+    "group": "User Name"
+  },
+  "userNameBorderColor": {
+    "type": "colorpicker",
+    "label": "Border Color",
+    "value": "rgba(255,255,255,1)",
+    "group": "User Name"
+  },
+  "userNameFontColor": {
+    "type": "colorpicker",
+    "label": "Font Color",
+    "value": "rgba(0,0,0,1)",
+    "group": "User Name"
+  },
+  "userNameFontSize": {
+    "type": "number",
+    "label": "Font Size",
+    "value": 22,
+    "group": "User Name"
+  },
+  "userNameBadgeSize": {
+    "type": "number",
+    "label": "Badge Size",
+    "value": 22,
+    "group": "User Name"
+  },
+  "userNameBadgeMarginRight": {
+    "type": "number",
+    "label": "Badge Margin Right",
+    "value": 3,
+    "group": "User Name"
+  },
+
+  "userMessageFontSize": {
+    "type": "number",
+    "label": "Font Size",
+    "value": 22,
+    "group": "User Message"
+  },
+  "userMessageFontColor": {
+    "type": "colorpicker",
+    "label": "Font Color",
+    "value": "rgba(0,0,0,1)",
+    "group": "User Message"
+  },
+  "userMessageTextShadowColor": {
+    "type": "colorpicker",
+    "label": "Shadow Color",
+    "value": "rgba(0,0,0,1)",
+    "group": "User Message"
+  },
+  "userMessageTextShadowY": {
+    "label": "Shadow Vertical Position",
+    "type": "slider",
+    "max": 25,
+    "min": -25,
+    "step": 1,
+    "value": 0,
+    "group": "User Message"
+  },
+  "userMessageTextShadowX": {
+    "label": "Shadow Horizontal Position",
+    "type": "slider",
+    "max": 25,
+    "min": -25,
+    "step": 1,
+    "value": 0,
+    "group": "User Message"
+  },
+  "userMessageTextShadowBlur": {
+    "label": "Shadow Blur",
+    "type": "slider",
+    "max": 25,
+    "min": 0,
+    "step": 1,
+    "value": 0,
+    "group": "User Message"
+  },
 
 
   "fontName": {
@@ -350,27 +628,30 @@
     "group": "Settings"
   },
   
+  "keepATestMessage": {
+    "type": "checkbox",
+    "label": "Keep a Test Message",
+    "value": false,
+    "group": "Test"
+  },
   "testMessage": {
     "type": "button",
     "label": "Test message",
     "value": "Test message",
     "group": "Test"
   },
-  
   "messagesInterval": {
     "type": "number",
     "label": "Interval between messages (in seconds)",
     "value": 1.5,
     "group": "Test"
   },
-  
   "startSendingMessages": {
     "type": "button",
     "label": "Start messages",
     "value": "Start messages",
     "group": "Test"
   },
-  
   "stopSendingMessages": {
     "type": "button",
     "label": "Stop messages",

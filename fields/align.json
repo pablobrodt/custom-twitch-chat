@@ -1,0 +1,13 @@
+{
+  "placeholderAlign": {
+    "type": "dropdown",
+    "label": "Align",
+    "value": "flex-start",
+    "options": {
+      "flex-start": "Left",
+      "center": "Center",
+      "flex-end": "Right"
+    },
+    "group": "placeholderGroup"
+  }
+}

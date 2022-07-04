@@ -29,86 +29,65 @@
   color: darkred;
   justify-content: center;
   padding: 6px;
-
-  /*
-  display: flex; {{display}}
-  margin: 0;
-  margin-bottom: {{titleMarginBottom}}px;
-
-  border-width: {{titleBorderWidth}}px;
-  border-style: {{titleBorderStyle}};
-  border-top-width: {{titleBorderTop}}px;
-  border-right-width: {{titleBorderRight}}px;
-  border-bottom-width: {{titleBorderBottom}}px;
-  border-left-width: {{titleBorderLeft}}px;
-  border-radius: {{titleBorderRadius}}px;
-  border-color: black; {{titleBorderColor}}
-
-  background-color: {{titleBackgroundColor}};
-  font-size: {{titleFontSize}}px;
-  color: {{titleColor}};
-  justify-content: {{titleAlign}};
-  padding: {{titlePadding}}px;
-  */
+  text-shadow: 0px 0px 0px rgba(0,0,0,0);
 }
 
 .message-row {
-  /* border: solid 1px green; */
   display: flex;
-  flex-direction: column; /*{{messageDirection}}*/
+  flex-direction: column;
   position: relative;
+  background-color: lightblue;
 
-  background-color: lightblue; /*{{fontColor}}*/
+  border-color: black;
+  border-style: solid;
+  border-top-width: 2px;
+  border-right-width: 2px;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+  border-radius: 8px;  
 
-  border-width: 2px; /*{{borderWidth}}*/
-  border-radius: 8px; /*{{borderRadius}}*/
-  border-color: black; /*{{borderColor}}*/
-  border-style: solid; /*{{borderStyle}}*/
+  padding: 6px;
 
-  padding: 6px; /*{{padding}}*/
-  padding-top: 5px; /*{{paddingTop}}*/
-  padding-right: 5px; /*{{paddingRight}}*/
-  padding-bottom: 5px; /*{{paddingBottom}}*/
-  padding-left: 5px; /*{{paddingLeft}}*/
-
-  margin: 6px 0; /*{{marginVertical}}*/
-  margin-top: 5px; /*{{marginTop}}*/
-  margin-bottom: 5px; /*{{marginBottom}}*/
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
-.user-name {
-  /* border: solid 1px red; */
+.message-row > .user-name {
+  position: relative;
   display: flex;
   flex-shrink: 1;
   flex-direction: row;
+  margin-right: 4px;
   align-items: center;
-
-  margin-right: 4px; /*{{userNameMarginRight}}*/
-
-  /* just in case someone wants to position the user name */
-  /* position: absolute; /*{{userNamePosition}}*/
-  /* top: -10px; /*{{userNameTopPosition}}*/
-  /* right: 0; /*{{userNameRightPosition}}*/
-  /* bottom: 0; /*{{userNameBottomPosition}}*/
-  /* left: 0; /*{{userNameLeftPosition}}*/
+  align-self: flex-start;
+  top: 0;
+  left: 0;
+  border-style: solid;
+  border-top-width: 0;
+  border-right-width: 0;
+  border-bottom-width: 0;
+  border-left-width: 0;
+  border-color: black;
 }
 
 .user-name > .badge {
   display: flex;
   flex-shrink: 1;
-  max-height: 22px; /*{{fontSize}}px*/
+  max-height: 22px;
   margin-right: 3px;
 }
 
 .user-name > span {
-  font-size: 22px; /*{{fontSize}}*/
-  color: purple; /*{{fontColor}}*/
+  color: purple;
+  font-size: 30px;
 }
 
 .user-message {
-  /* border: solid 1px purple; */
-  font-size: 22px; /*{{fontSize}}px*/
-  color: purple; /*{{fontColor}}*/
+  display: flex;
+  flex: 1;
+  font-size: 22px;
+  color: purple;
+  text-shadow: 0px 0px 0px rgba(0,0,0,0);
 }
 
 .main-container {
