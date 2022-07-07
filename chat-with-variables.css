@@ -2,17 +2,57 @@
 @import url('https://fonts.googleapis.com/css?family={{fontName}}');
 
 * {
-  font-family: Verdana;
+  font-family: {{fontName}};
 }
 
-.chat-container {
-  
+.main-container {
+  background-color: {{mainContainerBackgroundColor}};
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+}
+
+.messages-container {
+  position: relative;
+  display: flex;
+  flex: 1;
+  overflow-y: hidden;
+}
+
+.messages-container--bottom {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+}
+
+.messages-container--top {
+  left: 0;
+  right: 0;
+  top: 0;
+  position: absolute;
+}
+
+.messages-content {
+  position: absolute;
+  width: 100%;
+}
+
+.messages-content--top {
+  top: 0;
+}
+
+.messages-content--bottom {
+  bottom: 5px;
 }
 
 .title {
-  display: {{display}};
+  display: {{titleDisplay}};
   margin: 0;
   margin-bottom: {{titleMarginBottom}}px;
+  z-index: 1;
   
   border-style: {{titleBorderStyle}};
   border-top-width: {{titleBorderTop}}px;
@@ -51,36 +91,31 @@
   margin-bottom: {{messageContainerMarginBottom}}px;
 }
 
-.user-name {
+.message-row > .user-name {
   position: relative;
   display: flex;
   flex-shrink: 1;
   flex-direction: row;
   margin-right: {{userNameMarginRight}}px;
   align-items: {{userNameVerticalAlign}};
-  align-self:{{userNameHorizontalAlign}};
+  align-self: {{userNameHorizontalAlign}};
   top: {{userNameTopPosition}}px;
-  left: {{userNameLeftPosition}};
+  left: {{userNameLeftPosition}}px;
   border-style: {{userNameBorderStyle}};
   border-top-width: {{userNameBorderTopWidth}}px;
   border-right-width: {{userNameBorderRightWidth}}px;
   border-bottom-width: {{userNameBorderBottomWidth}}px;
   border-left-width: {{userNameBorderLeftWidth}}px;
   border-color: {{userNameBorderColor}};
-  color: {{userNameFontColor}};
-  font-size: {{userNameFontSize}};
+  font-size: {{userNameFontSize}}px;
+  background-color: {{userNameBackgroundColor}};
 }
 
-.user-name > .badge {
-  display: flex;
+.message-row > .user-name > .badge {
+  display: {{userNameBadgesVisibility}};
   flex-shrink: 1;
   max-height: {{userNameBadgeSize}}px;
   margin-right: {{userNameBadgeMarginRight}}px;
-}
-
-.user-name > span {
-  color: {{userNameFontColor}};
-  font-size: {{userNameFontSize}}px;
 }
 
 .user-message {

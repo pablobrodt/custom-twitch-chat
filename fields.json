@@ -1,5 +1,55 @@
 {
-  "display": {
+  "messagesLimit": {
+    "type": "number",
+    "label": "Messages limit",
+    "value": 5,
+    "group": "Settings"
+  },
+  "hideAfter": {
+    "type": "number",
+    "label": "Hide message after seconds (999 to disable)",
+    "value": 999,
+    "group": "Settings"
+  },
+  "hideCommands": {
+    "label": "Hide messages with ! (commands)",
+    "type": "dropdown",
+    "value": "yes",
+    "options": {
+      "yes": "Yes",
+      "no": "No"
+    },
+    "group": "Settings"
+  },
+  "ignoredUsers": {
+    "label": "Ignored users (comma separated)",
+    "type": "text",
+    "value": "StreamElements,OtherBot",
+    "group": "Settings"
+  },
+  "fontName": {
+    "type": "text",
+    "label": "Font name",
+    "value": "Montserrat",
+    "group": "Settings"
+  },
+  "alignMessages": {
+    "label": "Align Messages",
+    "type": "dropdown",
+    "value": "column",
+    "options": {
+      "column": "Bottom",
+      "column-reverse": "Top"
+    },
+    "group": "Settings"
+  },
+  "mainContainerBackgroundColor": {
+    "type": "colorpicker",
+    "label": "Background Color",
+    "value": "rgba(255,255,255,1)",
+    "group": "Main Container"
+  },
+  "titleDisplay": {
     "type": "dropdown",
     "label": "Show Title?",
     "value": "none",
@@ -9,7 +59,7 @@
     },
     "group": "Title"
   },
-  "title": {
+  "titleLabel": {
     "type": "text",
     "label": "Title",
     "value": "Chat",
@@ -142,7 +192,6 @@
     "value": 0,
     "group": "Title"
   },
-
   "messageContainerDirection": {
     "label": "Direction",
     "type": "dropdown",
@@ -230,7 +279,139 @@
     "value": 0,
     "group": "Message Container"
   },
-
+  "messageContainerAnimationIn": {
+    "type": "dropdown",
+    "label": "Animation In:",
+    "value": "none",
+    "options": {
+      "none": "None",
+      "bounceIn": "bounceIn",
+      "bounceInDown": "bounceInDown",
+      "bounceInLeft": "bounceInLeft",
+      "bounceInRight": "bounceInRight",
+      "bounceInUp": "bounceInUp",
+      "fadeIn": "fadeIn",
+      "fadeInDown": "fadeInDown",
+      "fadeInDownBig": "fadeInDownBig",
+      "fadeInLeft": "fadeInLeft",
+      "fadeInLeftBig": "fadeInLeftBig",
+      "fadeInRight": "fadeInRight",
+      "fadeInRightBig": "fadeInRightBig",
+      "fadeInUp": "fadeInUp",
+      "fadeInUpBig": "fadeInUpBig",
+      "flipInX": "flipInX",
+      "flipInY": "flipInY",
+      "lightSpeedIn": "lightSpeedIn",
+      "rotateIn": "rotateIn",
+      "rotateInDownLeft": "rotateInDownLeft",
+      "rotateInDownRight": "rotateInDownRight",
+      "rotateInUpLeft": "rotateInUpLeft",
+      "rotateInUpRight": "rotateInUpRight",
+      "slideInUp": "slideInUp",
+      "slideInDown": "slideInDown",
+      "slideInLeft": "slideInLeft",
+      "slideInRight": "slideInRight",
+      "zoomIn": "zoomIn",
+      "zoomInDown": "zoomInDown",
+      "zoomInLeft": "zoomInLeft",
+      "zoomInRight": "zoomInRight",
+      "zoomInUp": "zoomInUp",
+      "jackInTheBox": "jackInTheBox",
+      "rollIn": "rollIn"
+    },
+    "group": "Message Container"
+  },
+  "messageContainerAnimationOut": {
+    "type": "dropdown",
+    "label": "Animation Out:",
+    "value": "none",
+    "options": {
+      "none": "None",
+      "bounceOut": "bounceOut",
+      "bounceOutDown": "bounceOutDown",
+      "bounceOutLeft": "bounceOutLeft",
+      "bounceOutRight": "bounceOutRight",
+      "bounceOutUp": "bounceOutUp",
+      "fadeOut": "fadeOut",
+      "fadeOutDown": "fadeOutDown",
+      "fadeOutDownBig": "fadeOutDownBig",
+      "fadeOutLeft": "fadeOutLeft",
+      "fadeOutLeftBig": "fadeOutLeftBig",
+      "fadeOutRight": "fadeOutRight",
+      "fadeOutRightBig": "fadeOutRightBig",
+      "fadeOutUp": "fadeOutUp",
+      "fadeOutUpBig": "fadeOutUpBig",
+      "flipOutX": "flipOutX",
+      "flipOutY": "flipOutY",
+      "lightSpeedOut": "lightSpeedOut",
+      "rotateOut": "rotateOut",
+      "rotateOutDownLeft": "rotateOutDownLeft",
+      "rotateOutDownRight": "rotateOutDownRight",
+      "rotateOutUpLeft": "rotateOutUpLeft",
+      "rotateOutUpRight": "rotateOutUpRight",
+      "slideOutUp": "slideOutUp",
+      "slideOutDown": "slideOutDown",
+      "slideOutLeft": "slideOutLeft",
+      "slideOutRight": "slideOutRight",
+      "zoomOut": "zoomOut",
+      "zoomOutDown": "zoomOutDown",
+      "zoomOutLeft": "zoomOutLeft",
+      "zoomOutRight": "zoomOutRight",
+      "zoomOutUp": "zoomOutUp",
+      "rollOut": "rollOut"
+    },
+    "group": "Message Container"
+  },
+  "userNameColorType": {
+    "type": "dropdown",
+    "label": "User Name Color Type",
+    "value": "twitch",
+    "options": {
+      "twitch": "Same as Twitch",
+      "custom": "custom (choose below)"
+    },
+    "group": "User Name"
+  },
+  "userNameCustomColor": {
+    "type": "colorpicker",
+    "label": "Font Custom Color",
+    "value": "rgba(0,0,0,1)",
+    "group": "User Name"
+  },
+  "userNameFontSize": {
+    "type": "number",
+    "label": "Font Size",
+    "value": 22,
+    "group": "User Name"
+  },
+  "userNameBadgesVisibility": {
+    "label": "Show Badges?",
+    "type": "dropdown",    
+    "value": "none",
+    "options": {
+      "flex": "Yes",
+      "none": "No"      
+    },
+    "group": "User Name"
+  },
+  "userNameBadgeSize": {
+    "type": "number",
+    "label": "Badge Size",
+    "value": 22,
+    "group": "User Name"
+  },
+  "userNameBadgeMarginRight": {
+    "type": "number",
+    "label": "Badge Margin Right",
+    "value": 3,
+    "group": "User Name"
+  },
+  "userNameBackgroundColor": {
+    "type": "colorpicker",
+    "label": "User Name Background Color",
+    "value": "rgba(0,0,0,0)",
+    "group": "User Name"
+  },
   "userNameMarginRight": {
     "type": "number",
     "label": "Margin Right",
@@ -265,7 +446,7 @@
     "value": 0,
     "group": "User Name"
   },
-  "userNameRightpPosition": {
+  "userNameLeftPosition": {
     "type": "number",
     "label": "Left Position",
     "value": 0,
@@ -318,31 +499,6 @@
     "value": "rgba(255,255,255,1)",
     "group": "User Name"
   },
-  "userNameFontColor": {
-    "type": "colorpicker",
-    "label": "Font Color",
-    "value": "rgba(0,0,0,1)",
-    "group": "User Name"
-  },
-  "userNameFontSize": {
-    "type": "number",
-    "label": "Font Size",
-    "value": 22,
-    "group": "User Name"
-  },
-  "userNameBadgeSize": {
-    "type": "number",
-    "label": "Badge Size",
-    "value": 22,
-    "group": "User Name"
-  },
-  "userNameBadgeMarginRight": {
-    "type": "number",
-    "label": "Badge Margin Right",
-    "value": 3,
-    "group": "User Name"
-  },
-
   "userMessageFontSize": {
     "type": "number",
     "label": "Font Size",
@@ -388,249 +544,9 @@
     "value": 0,
     "group": "User Message"
   },
-
-
-  "fontName": {
-    "type": "text",
-    "label": "Font name",
-    "value": "Montserrat",
-    "group": "Typography"
-  },
-  "fontSize": {
-    "type": "number",
-    "label": "Font size",
-    "value": 24,
-    "group": "Typography"
-  },
-  "fontWeight": {
-    "label": "Font Weight",
-    "type": "dropdown",
-    "value": "400",
-    "options": {
-      "100": "Thin (100)",
-      "300": "Light (300)",
-      "400": "Regular (400)",
-      "500": "Medium (500)",
-      "700": "Bold (700)",
-      "900": "Black (900)"
-    },
-    "group": "Typography"
-  },
-  "fontColor": {
-    "type": "colorpicker",
-    "label": "Font Color",
-    "value": "rgba(255,255,255,1)",
-    "group": "Typography"
-  },
-  
-  
-  "messagebackgroundColor": {
-    "type": "colorpicker",
-    "label": "Message Background Color",
-    "value": "rgba(255,255,255,1)",
-    "group": "Typography"
-  },
-  
-  "textShadow": {
-    "type": "text",
-    "label": "Text shadow",
-    "value": "rgb(0, 0, 0) 1px 1px 1px",
-    "group": "Typography"
-  },
-  "messageBoxShadow": {
-    "type": "text",
-    "label": "Message Box shadow",
-    "value": "rgb(0, 0, 0) 1px 1px 1px",
-    "group": "Typography"
-  },
-  "emoteSize": {
-    "type": "number",
-    "label": "Emote size",
-    "value": 24,
-    "group": "Typography"
-  },
-  "alignMessages": {
-    "label": "Align Messages",
-    "type": "dropdown",
-    "value": "flex",
-    "options": {
-      "flex": "Bottom",
-      "block": "Top"
-    },
-    "group": "Typography"
-  },
-  "nickColor": {
-    "type": "dropdown",
-    "label": "Nickname color:",
-    "value": "user",
-    "options": {
-      "user": "same as twitch",
-      "messagecolor": "same as message text",
-      "custom": "other (choose below)"
-    },
-    "group": "Typography"
-  },
-  "customNickColor": {
-    "type": "colorpicker",
-    "label": "Nickname color:",
-    "value": "rgba(0,255,0,1)",
-    "group": "Typography"
-  },
-  
-  "userbackgroundColor": {
-    "type": "colorpicker",
-    "label": "Nickname Background Color",
-    "value": "rgba(0,0,0,1)",
-    "group": "Typography"
-  },
-  
-  "messagesLimit": {
-    "type": "number",
-    "label": "Messages limit",
-    "value": 5,
-    "group": "Settings"
-  },
-  "hideAfter": {
-    "type": "number",
-    "label": "Hide after seconds (999 to disable)",
-    "value": 999,
-    "group": "Settings"
-  },
-  "hideCommands": {
-    "label": "Hide messages with ! (commands)",
-    "type": "dropdown",
-    "value": "yes",
-    "options": {
-      "yes": "Yes",
-      "no": "No"
-    },
-    "group": "Settings"
-  },
-  
-  "badgesVisibility": {
-    "label": "Show Badges?",
-    "type": "dropdown",    
-    "value": "none",
-    "options": {
-      "inline": "Yes",
-      "none": "No"      
-    },
-    "group": "Settings"
-    
-  },
-  
-  "ignoredUsers": {
-    "label": "Ignored users (comma separated)",
-    "type": "text",
-    "value": "StreamElements,OtherBot",
-    "group": "Settings"
-  },
-  
-  "sliderNickname": {
-    "label": "Horizontal nickname position",
-    "type": "slider",
-    "value": "1",
-    "max": 25,
-    "min": 0,
-    "step": 1,
-    "value": 0,  
-    "group": "Settings"
-  },
-  
-  "outlineColor": {
-    "type": "colorpicker",
-    "label": "Outline Color:",
-    "value": "rgba(0,0,0,0)",
-    "group": "Settings"
-  },
-  
-  "animationIn": {
-    "type": "dropdown",
-    "label": "Animation In:",
-    "value": "none",
-    "options": {
-      "none": "None",
-      "bounceIn": "bounceIn",
-      "bounceInDown": "bounceInDown",
-      "bounceInLeft": "bounceInLeft",
-      "bounceInRight": "bounceInRight",
-      "bounceInUp": "bounceInUp",
-      "fadeIn": "fadeIn",
-      "fadeInDown": "fadeInDown",
-      "fadeInDownBig": "fadeInDownBig",
-      "fadeInLeft": "fadeInLeft",
-      "fadeInLeftBig": "fadeInLeftBig",
-      "fadeInRight": "fadeInRight",
-      "fadeInRightBig": "fadeInRightBig",
-      "fadeInUp": "fadeInUp",
-      "fadeInUpBig": "fadeInUpBig",
-      "flipInX": "flipInX",
-      "flipInY": "flipInY",
-      "lightSpeedIn": "lightSpeedIn",
-      "rotateIn": "rotateIn",
-      "rotateInDownLeft": "rotateInDownLeft",
-      "rotateInDownRight": "rotateInDownRight",
-      "rotateInUpLeft": "rotateInUpLeft",
-      "rotateInUpRight": "rotateInUpRight",
-      "slideInUp": "slideInUp",
-      "slideInDown": "slideInDown",
-      "slideInLeft": "slideInLeft",
-      "slideInRight": "slideInRight",
-      "zoomIn": "zoomIn",
-      "zoomInDown": "zoomInDown",
-      "zoomInLeft": "zoomInLeft",
-      "zoomInRight": "zoomInRight",
-      "zoomInUp": "zoomInUp",
-      "jackInTheBox": "jackInTheBox",
-      "rollIn": "rollIn"
-    },
-    "group": "Settings"
-  },
-  "animationOut": {
-    "type": "dropdown",
-    "label": "Animation Out:",
-    "value": "none",
-    "options": {
-      "none": "None",
-      "bounceOut": "bounceOut",
-      "bounceOutDown": "bounceOutDown",
-      "bounceOutLeft": "bounceOutLeft",
-      "bounceOutRight": "bounceOutRight",
-      "bounceOutUp": "bounceOutUp",
-      "fadeOut": "fadeOut",
-      "fadeOutDown": "fadeOutDown",
-      "fadeOutDownBig": "fadeOutDownBig",
-      "fadeOutLeft": "fadeOutLeft",
-      "fadeOutLeftBig": "fadeOutLeftBig",
-      "fadeOutRight": "fadeOutRight",
-      "fadeOutRightBig": "fadeOutRightBig",
-      "fadeOutUp": "fadeOutUp",
-      "fadeOutUpBig": "fadeOutUpBig",
-      "flipOutX": "flipOutX",
-      "flipOutY": "flipOutY",
-      "lightSpeedOut": "lightSpeedOut",
-      "rotateOut": "rotateOut",
-      "rotateOutDownLeft": "rotateOutDownLeft",
-      "rotateOutDownRight": "rotateOutDownRight",
-      "rotateOutUpLeft": "rotateOutUpLeft",
-      "rotateOutUpRight": "rotateOutUpRight",
-      "slideOutUp": "slideOutUp",
-      "slideOutDown": "slideOutDown",
-      "slideOutLeft": "slideOutLeft",
-      "slideOutRight": "slideOutRight",
-      "zoomOut": "zoomOut",
-      "zoomOutDown": "zoomOutDown",
-      "zoomOutLeft": "zoomOutLeft",
-      "zoomOutRight": "zoomOutRight",
-      "zoomOutUp": "zoomOutUp",
-      "rollOut": "rollOut"
-    },
-    "group": "Settings"
-  },
-  
-  "keepATestMessage": {
+  "startWithTestMessages": {
     "type": "checkbox",
-    "label": "Keep a Test Message",
+    "label": "Start With Test Messages",
     "value": false,
     "group": "Test"
   },

@@ -5,8 +5,23 @@
   font-family: Verdana;
 }
 
-.chat-container {
+.main-container {
+  background-color: rgba(255,0,0,.5);
+  flex-grow: 1;
+  flex-direction: column;
+  border: solid 5px pink;
+  height: 100%;
+  justify-content: space-between;
+}
 
+.main-container--bottom {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: absolute;
+}
+
+.messages-container {
 }
 
 .title {
@@ -68,18 +83,15 @@
   border-bottom-width: 0;
   border-left-width: 0;
   border-color: black;
+  font-size: 30px;
+  background-color: red;
 }
 
-.user-name > .badge {
+.message-row > .user-name > .badge {
   display: flex;
   flex-shrink: 1;
   max-height: 22px;
   margin-right: 3px;
-}
-
-.user-name > span {
-  color: purple;
-  font-size: 30px;
 }
 
 .user-message {
@@ -90,96 +102,6 @@
   text-shadow: 0px 0px 0px rgba(0,0,0,0);
 }
 
-.main-container {
-  /* border: solid 3px blue; */
-}
-
 .emote {
   /* border: solid 3px lime; */
 }
-
-/* @import url('https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css');
-@import url('https://fonts.googleapis.com/css?family={{fontName}}');
-
-* {
-  font-family: '{{fontName}}', sans-serif;
-  color: {{fontColor}};
-  overflow: hidden;
-  font-weight: {{fontWeight}};
-  text-shadow:{textShadow};
-  text-align: left;
-  scroll-behavior: smooth;
-}
-
-.user-box{
-  position: absolute;
-  background-color: {{userbackgroundColor}};
-  border-radius: 7px;
-  font-size:{{fontSize}}px;
-  z-index: 99;
-  top: 2%;
-  padding: 7px;
-  margin-top: auto;
-  /* left: {{sliderNickname}}%;
-  font-weight: 600;
-  text-align: left;
-  box-shadow: 0 0 1px 2px {{outlineColor}};
-}
-
-.user-box > span{
-  font-size:25px;
-  font-weight: 600;
-  text-align: left;
-}
-
-.main-container{
-  display:{{alignMessages}};
-  height:98%;
-  flex-direction: column;
-  justify-content: flex-end;
-  text-align: left;
-}
-
-.message-row{
-  position:relative;
-  flex: 0 0 auto;
-  width:95%;
-  height: auto;
-  vertical-align: baseline;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  border-radius: 10px;
-  padding-top: 37px;
-  text-align: left;
-}
-
-.badge{
-  display:{{badgesVisibility}};
-  height:{{fontSize}}px;
-  
-}
-
-
-.user-message{
-  font-size:{{fontSize}}px;
-  background-color: {{messagebackgroundColor}};
-  border-radius: 10px;
-  height: auto;
-  box-shadow: {messageBoxShadow};
-  display:inline-block;
-  padding: 10px;
-  top: 5.5%;
-  max-width:95%;
-  position: relative;
-  
-}
-
-.emote{
-  height: {emoteSize}px;
-  vertical-align: middle;
-  background-repeat:no-repeat;
-}
-
-.action{
-  font-style: italic;
-} */
