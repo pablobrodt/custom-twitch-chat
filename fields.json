@@ -49,159 +49,8 @@
     "value": "rgba(255,255,255,1)",
     "group": "Main Container"
   },
-  "titleDisplay": {
-    "type": "dropdown",
-    "label": "Show Title?",
-    "value": "none",
-    "options": {
-      "none": "No",
-      "flex": "Yes"
-    },
-    "group": "Title"
-  },
-  "titleLabel": {
-    "type": "text",
-    "label": "Title",
-    "value": "Chat",
-    "group": "Title"
-  },
-  "titleMarginBottom": {
-    "type": "number",
-    "label": "Margin Bottom",
-    "value": 0,
-    "group": "Title"
-  },
-  "titleBorderColor": {
-    "type": "colorpicker",
-    "label": "Border Color",
-    "value": "rgba(0,0,0,1)",
-    "group": "Title"
-  },
-  "titleBorderStyle": {
-    "type": "dropdown",
-    "label": "Border Style",
-    "value": "none",
-    "options": {
-      "none": "None",
-      "dotted": "Dotted",
-      "dashed": "Dashed",
-      "solid": "Solid",
-      "double": "Double",
-      "groove": "Groove",
-      "ridge": "Ridge",
-      "inset": "Inset",
-      "outset": "Outset"
-    },
-    "group": "Title"
-  },
-  "titleBorderTop": {
-    "type": "number",
-    "label": "Border Top",
-    "value": 0,
-    "group": "Title"
-  },
-  "titleBorderRight": {
-    "type": "number",
-    "label": "Border Right",
-    "value": 0,
-    "group": "Title"
-  },
-  "titleBorderBottom": {
-    "type": "number",
-    "label": "Border Bottom",
-    "value": 0,
-    "group": "Title"
-  },
-  "titleBorderLeft": {
-    "type": "number",
-    "label": "Border Left",
-    "value": 0,
-    "group": "Title"
-  },
-  "titleBorderRadius": {
-    "type": "number",
-    "label": "Border Radius",
-    "value": 0,
-    "group": "Title"
-  },
-  "titleBackgroundColor": {
-    "type": "colorpicker",
-    "label": "Background Color",
-    "value": "rgba(255,255,255,0)",
-    "group": "Title"
-  },
-  "titleFontSize": {
-    "type": "number",
-    "label": "Font Size",
-    "value": 30,
-    "group": "Title"
-  },
-  "titleColor": {
-    "type": "colorpicker",
-    "label": "Color",
-    "value": "rgba(0,0,0,1)",
-    "group": "Title"
-  },
-  "titleAlign": {
-    "type": "dropdown",
-    "label": "Align",
-    "value": "flex-start",
-    "options": {
-      "flex-start": "Left",
-      "center": "Center",
-      "flex-end": "Right"
-    },
-    "group": "Title"
-  },
-  "titlePadding": {
-    "type": "number",
-    "label": "Padding",
-    "value": 0,
-    "group": "Title"
-  },
-  "titleTextShadowColor": {
-    "type": "colorpicker",
-    "label": "Shadow Color",
-    "value": "rgba(0,0,0,1)",
-    "group": "Title"
-  },
-  "titleTextShadowY": {
-    "label": "Shadow Vertical Position",
-    "type": "slider",
-    "max": 25,
-    "min": -25,
-    "step": 1,
-    "value": 0,
-    "group": "Title"
-  },
-  "titleTextShadowX": {
-    "label": "Shadow Horizontal Position",
-    "type": "slider",
-    "max": 25,
-    "min": -25,
-    "step": 1,
-    "value": 0,
-    "group": "Title"
-  },
-  "titleTextShadowBlur": {
-    "label": "Shadow Blur",
-    "type": "slider",
-    "max": 25,
-    "min": 0,
-    "step": 1,
-    "value": 0,
-    "group": "Title"
-  },
-  "messageContainerDirection": {
-    "label": "Direction",
-    "type": "dropdown",
-    "value": "column",
-    "options": {
-      "row": "Row",
-      "column": "Column"
-    },
-    "group": "Message Container"
-  },
+
+
   "messageContainerBackgroundColor": {
     "type": "colorpicker",
     "label": "Background Color",
@@ -211,7 +60,7 @@
   "messageContainerBorderStyle": {
     "type": "dropdown",
     "label": "Border Style",
-    "value": "none",
+    "value": "solid",
     "options": {
       "none": "None",
       "dotted": "Dotted",
@@ -225,57 +74,54 @@
     },
     "group": "Message Container"
   },
-  "messageContainerBorderTop": {
-    "type": "number",
-    "label": "Border Top",
-    "value": 0,
-    "group": "Message Container"
-  },
-  "messageContainerBorderRight": {
-    "type": "number",
-    "label": "Border Right",
-    "value": 0,
-    "group": "Message Container"
-  },
-  "messageContainerBorderBottom": {
-    "type": "number",
-    "label": "Border Bottom",
-    "value": 0,
-    "group": "Message Container"
-  },
-  "messageContainerBorderLeft": {
-    "type": "number",
-    "label": "Border Left",
-    "value": 0,
-    "group": "Message Container"
-  },
-  "messageContainerBorderRadius": {
-    "type": "number",
-    "label": "Border Radius",
-    "value": 0,
-    "group": "Message Container"
-  },
   "messageContainerBorderColor": {
     "type": "colorpicker",
     "label": "Border Color",
     "value": "rgba(255,255,255,1)",
     "group": "Message Container"
   },
+  "messageContainerBorderSize": {
+    "label": "Border Size",
+    "type": "slider",
+    "max": 25,
+    "min": 0,
+    "step": 1,
+    "value": 0,
+    "group": "Message Container"
+  },
+  "messageContainerBorderRadius": {
+    "label": "Border Radius",
+    "type": "slider",
+    "max": 100,
+    "min": 0,
+    "step": 1,
+    "value": 0,
+    "group": "Message Container"
+  },
   "messageContainerPadding": {
-    "type": "number",
     "label": "Padding",
+    "type": "slider",
+    "max": 100,
+    "min": 0,
+    "step": 1,
     "value": 0,
     "group": "Message Container"
   },
   "messageContainerMarginTop": {
-    "type": "number",
     "label": "Margin Top",
+    "type": "slider",
+    "max": 100,
+    "min": 0,
+    "step": 1,
     "value": 0,
     "group": "Message Container"
   },
   "messageContainerMarginBottom": {
-    "type": "number",
     "label": "Margin Bottom",
+    "type": "slider",
+    "max": 100,
+    "min": 0,
+    "step": 1,
     "value": 0,
     "group": "Message Container"
   },
@@ -362,6 +208,27 @@
     },
     "group": "Message Container"
   },
+
+
+  "userNameBadgesVisibility": {
+    "label": "Show Badges?",
+    "type": "dropdown",    
+    "value": "none",
+    "options": {
+      "flex": "Yes",
+      "none": "No"      
+    },
+    "group": "User Name"
+  },
+  "userNameBadgeSize": {
+    "label": "Badge Size",
+    "type": "slider",
+    "max": 60,
+    "min": 12,
+    "step": 1,
+    "value": 22,
+    "group": "User Name"
+  },
   "userNameColorType": {
     "type": "dropdown",
     "label": "User Name Color Type",
@@ -374,48 +241,56 @@
   },
   "userNameCustomColor": {
     "type": "colorpicker",
-    "label": "Font Custom Color",
+    "label": "User Name Custom Color",
     "value": "rgba(0,0,0,1)",
     "group": "User Name"
   },
   "userNameFontSize": {
-    "type": "number",
     "label": "Font Size",
+    "type": "slider",
+    "max": 60,
+    "min": 12,
+    "step": 1,
     "value": 22,
     "group": "User Name"
   },
-  "userNameBadgesVisibility": {
-    "label": "Show Badges?",
-    "type": "dropdown",    
-    "value": "none",
-    "options": {
-      "flex": "Yes",
-      "none": "No"      
-    },
+  "userNameTextShadowColor": {
+    "type": "colorpicker",
+    "label": "Shadow Color",
+    "value": "rgba(0,0,0,1)",
     "group": "User Name"
   },
-  "userNameBadgeSize": {
-    "type": "number",
-    "label": "Badge Size",
-    "value": 22,
+  "userNameTextShadowY": {
+    "label": "Shadow Vertical Position",
+    "type": "slider",
+    "max": 25,
+    "min": -25,
+    "step": 1,
+    "value": 0,
     "group": "User Name"
   },
-  "userNameBadgeMarginRight": {
-    "type": "number",
-    "label": "Badge Margin Right",
-    "value": 3,
+  "userNameTextShadowX": {
+    "label": "Shadow Horizontal Position",
+    "type": "slider",
+    "max": 25,
+    "min": -25,
+    "step": 1,
+    "value": 0,
+    "group": "User Name"
+  },
+  "userNameTextShadowBlur": {
+    "label": "Shadow Blur",
+    "type": "slider",
+    "max": 25,
+    "min": 0,
+    "step": 1,
+    "value": 0,
     "group": "User Name"
   },
   "userNameBackgroundColor": {
     "type": "colorpicker",
     "label": "User Name Background Color",
     "value": "rgba(0,0,0,0)",
-    "group": "User Name"
-  },
-  "userNameMarginRight": {
-    "type": "number",
-    "label": "Margin Right",
-    "value": 0,
     "group": "User Name"
   },
   "userNameVerticalAlign": {
@@ -440,68 +315,14 @@
     },
     "group": "User Name"
   },
-  "userNameTopPosition": {
-    "type": "number",
-    "label": "Top Position",
-    "value": 0,
-    "group": "User Name"
-  },
-  "userNameLeftPosition": {
-    "type": "number",
-    "label": "Left Position",
-    "value": 0,
-    "group": "User Name"
-  },
-  "userNameBorderStyle": {
-    "type": "dropdown",
-    "label": "Border Style",
-    "value": "none",
-    "options": {
-      "none": "None",
-      "dotted": "Dotted",
-      "dashed": "Dashed",
-      "solid": "Solid",
-      "double": "Double",
-      "groove": "Groove",
-      "ridge": "Ridge",
-      "inset": "Inset",
-      "outset": "Outset"
-    },
-    "group": "User Name"
-  },
-  "userNameBorderTopWidth": {
-    "type": "number",
-    "label": "Border Top",
-    "value": 0,
-    "group": "User Name"
-  },
-  "userNameBorderRightWidth": {
-    "type": "number",
-    "label": "Border Right",
-    "value": 0,
-    "group": "User Name"
-  },
-  "userNameBorderBottomWidth": {
-    "type": "number",
-    "label": "Border Bottom",
-    "value": 0,
-    "group": "User Name"
-  },
-  "userNameBorderLeftWidth": {
-    "type": "number",
-    "label": "Border Left",
-    "value": 0,
-    "group": "User Name"
-  },
-  "userNameBorderColor": {
-    "type": "colorpicker",
-    "label": "Border Color",
-    "value": "rgba(255,255,255,1)",
-    "group": "User Name"
-  },
+
+
   "userMessageFontSize": {
-    "type": "number",
     "label": "Font Size",
+    "type": "slider",
+    "max": 60,
+    "min": 12,
+    "step": 1,
     "value": 22,
     "group": "User Message"
   },
@@ -544,9 +365,11 @@
     "value": 0,
     "group": "User Message"
   },
-  "startWithTestMessages": {
+
+
+  "fixedTestMessage": {
     "type": "checkbox",
-    "label": "Start With Test Messages",
+    "label": "Start with a test message",
     "value": false,
     "group": "Test"
   },
@@ -557,9 +380,12 @@
     "group": "Test"
   },
   "messagesInterval": {
-    "type": "number",
     "label": "Interval between messages (in seconds)",
-    "value": 1.5,
+    "type": "slider",
+    "max": 25,
+    "min": 1,
+    "step": 1,
+    "value": 2,
     "group": "Test"
   },
   "startSendingMessages": {

@@ -48,41 +48,16 @@
   bottom: 5px;
 }
 
-.title {
-  display: {{titleDisplay}};
-  margin: 0;
-  margin-bottom: {{titleMarginBottom}}px;
-  z-index: 1;
-  
-  border-style: {{titleBorderStyle}};
-  border-top-width: {{titleBorderTop}}px;
-  border-right-width: {{titleBorderRight}}px;
-  border-bottom-width: {{titleBorderBottom}}px;
-  border-left-width: {{titleBorderLeft}}px;
-  border-radius: {{titleBorderRadius}}px;
-  border-color: {{titleBorderColor}};
-  
-  background-color: {{titleBackgroundColor}};
-  font-size: {{titleFontSize}}px;
-  color: {{titleColor}};
-  justify-content: {{titleAlign}};
-  padding: {{titlePadding}}px;
-  text-shadow: {{titleTextShadowY}}px {{titleTextShadowX}}px {{titleTextShadowBlur}}px {{titleTextShadowColor}};
-}
-
 .message-row {
   display: flex;
-  flex-direction: {{messageContainerDirection}};
+  flex-direction: column;
   position: relative;
   
   background-color: {{messageContainerBackgroundColor}};
   
   border-color: {{messageContainerBorderColor}};
   border-style: {{messageContainerBorderStyle}};
-  border-top-width: {{messageContainerBorderTop}}px;
-  border-right-width: {{messageContainerBorderRight}}px;
-  border-bottom-width: {{messageContainerBorderBottom}}px;
-  border-left-width: {{messageContainerBorderLeft}}px;
+  border-width: {{messageContainerBorderSize}}px;
   border-radius: {{messageContainerBorderRadius}}px;
   
   padding: {{messageContainerPadding}}px;
@@ -96,26 +71,18 @@
   display: flex;
   flex-shrink: 1;
   flex-direction: row;
-  margin-right: {{userNameMarginRight}}px;
   align-items: {{userNameVerticalAlign}};
   align-self: {{userNameHorizontalAlign}};
-  top: {{userNameTopPosition}}px;
-  left: {{userNameLeftPosition}}px;
-  border-style: {{userNameBorderStyle}};
-  border-top-width: {{userNameBorderTopWidth}}px;
-  border-right-width: {{userNameBorderRightWidth}}px;
-  border-bottom-width: {{userNameBorderBottomWidth}}px;
-  border-left-width: {{userNameBorderLeftWidth}}px;
-  border-color: {{userNameBorderColor}};
   font-size: {{userNameFontSize}}px;
   background-color: {{userNameBackgroundColor}};
+  text-shadow: {{userNameTextShadowY}}px {{userNameTextShadowX}}px {{userNameTextShadowBlur}}px {{userNameTextShadowColor}};
 }
 
 .message-row > .user-name > .badge {
   display: {{userNameBadgesVisibility}};
   flex-shrink: 1;
   max-height: {{userNameBadgeSize}}px;
-  margin-right: {{userNameBadgeMarginRight}}px;
+  margin-right: 4px;
 }
 
 .user-message {
@@ -124,12 +91,4 @@
   font-size: {{userMessageFontSize}}px;
   color: {{userMessageFontColor}};
   text-shadow: {{userMessageTextShadowY}}px {{userMessageTextShadowX}}px {{userMessageTextShadowBlur}}px {{userMessageTextShadowColor}};
-}
-
-.main-container {
-  /* border: solid 3px blue; */
-}
-
-.emote {
-  /* border: solid 3px lime; */
 }

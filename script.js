@@ -52,7 +52,6 @@ let userNameColorType = USER_NAME_COLOR_TYPE.TWITCH
 let userNameCustomColor = null
 let hideCommands = HIDE_COMMANDS.NO
 let messagesInterval = 1.5
-let startWithTestMessages = false
 
 function deleteMessage(messageId) {
   $(`.message-row[data-msgid=${messageId}]`).remove();
@@ -171,9 +170,14 @@ window.addEventListener(EVENTS.ON_WIDGET_LOAD, function (obj) {
   hideCommands = fieldData.hideCommands
   channelName = obj.detail.channel.username
   messagesInterval = fieldData.messagesInterval
-  startWithTestMessages = fieldData.startWithTestMessages
+  userNameColorType = fieldData.userNameColorType
+  userNameCustomColor = fieldData.userNameCustomColor
   
   shouldHideMessagesAfterDelay = hideAfter !== 999
+
+  if (fieldData.fixedTestMessage === true) {
+    addFixedTestMessage()
+  }
   
   fetch('https://api.streamelements.com/kappa/v2/channels/' + obj.detail.channel.id + '/')
   .then(response => response.json())
@@ -197,12 +201,6 @@ window.addEventListener(EVENTS.ON_WIDGET_LOAD, function (obj) {
   }
   
   ignoredUsers = fieldData.ignoredUsers.toLowerCase().replace(" ", "").split(",")
-  
-  if (startWithTestMessages) {
-    for (let i = 1; i <= 5; i++) {
-      testMessage()
-    }
-  }
 });
 
 function attachEmotes(message) {
@@ -265,14 +263,8 @@ function prependMessageRow(messageRowElement) {
   doAnimationOut(jqueryElement)
 }
 
-function addMessage(username, badges, message, userId, messageId) {
-  totalMessages += 1
-  
-  if (totalMessages >= messagesLimit) {
-    removeRow()
-  }
-  
-  const messageRowElement = $.parseHTML(`
+function getMessageHtml(userId, messageId, totalMessages, badges, username, message) {
+  return $.parseHTML(`
     <div
       data-sender="${userId}"
       data-msgid="${messageId}"
@@ -285,6 +277,16 @@ function addMessage(username, badges, message, userId, messageId) {
       </div>
     </div>
   `)
+}
+
+function addMessage(username, badges, message, userId, messageId) {
+  totalMessages += 1
+  
+  if (totalMessages >= messagesLimit) {
+    removeRow()
+  }
+  
+  const messageRowElement = getMessageHtml(userId, messageId, totalMessages, badges, username, message)
   
   switch (addition) {
     case ADDITIONS.APPEND: appendMessageRow(messageRowElement)
@@ -398,6 +400,44 @@ function stopSendingMessages() {
   }
 }
 
+function addFixedTestMessage() {
+  const userId = 171
+  const messageId = 171
+  const totalMessages = 1
+  const badges = getBadgesHtmlString([{
+    type: "moderator",
+    version: "1",
+    url: "https://static-cdn.jtvnw.net/badges/v1/3267646d-33f0-4b17-b3df-f923a41db1d0/3",
+    description: "Moderator"
+  }, {
+    type: "partner",
+    version: "1",
+    url: "https://static-cdn.jtvnw.net/badges/v1/d12a2e27-16f6-41d0-ab77-b780518f00a3/3",
+    description: "Verified"
+  }])
+  const username = getUsernameHtmlString('Usuário', '#5B99FF')
+  const message = attachEmotes({
+    text: 'Essa é uma mensagem de teste para facilitar a customização do seu chat! Utilize as ferramentas no painel ao lado <-! Kappa',
+    emotes: [{
+      type: "twitch",
+      name: "Kappa",
+      id: "25",
+      gif: !1,
+      urls: {
+        1: "https://static-cdn.jtvnw.net/emoticons/v1/25/1.0",
+        2: "https://static-cdn.jtvnw.net/emoticons/v1/25/1.0",
+        4: "https://static-cdn.jtvnw.net/emoticons/v1/25/3.0"
+      },
+      start: 46,
+      end: 50
+    }],
+  })
+
+  const messageHtml = getMessageHtml(userId, messageId, totalMessages, badges, username, message)
+  
+  $(messageHtml).prependTo('.main-container')
+}
+
 function fakeLoadWidget() {
   let customWidgetLoadEvent = new CustomEvent(EVENTS.ON_WIDGET_LOAD, {
     detail: {
@@ -416,7 +456,6 @@ function fakeLoadWidget() {
         alignMessages: ALIGN_MESSAGES.TOP,
         ignoredUsers: '',
         messagesInterval: 2,
-        startWithTestMessages: true,
       }
     }
   })

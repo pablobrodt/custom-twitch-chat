@@ -21,16 +21,18 @@
 </head>
 
 <body>
-  <button onclick="testMessage()">Enviar mensagem</button>
-  <button onclick="startSendingMessages()">Começar a enviar mensagens</button>
-  <button onclick="stopSendingMessages()">Parar de enviar mensagens</button>
-  <button onclick="fakeLoadWidget()">Disparar efeito de load falso</button>
+  <button onclick="testMessage()">Send message</button>
+  <button onclick="startSendingMessages()">Start sending messages</button>
+  <button onclick="stopSendingMessages()">Stop sending messages</button>
+  <button onclick="fakeLoadWidget()">Dispatch load event</button>
+
+  <!-- Html used by streamelements starts here -->
   <div class="main-container">
-    <h2 class="title">{{titleLabel}}</h2>
     <div class="messages-container">
       <div class="messages-content"></div>
     </div>
   </div>
+  <!-- Html used by streamelements stops here -->
 </body>
 
 </html>
