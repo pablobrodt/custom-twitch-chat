@@ -23,3 +23,16 @@ Bem vindos, esse é um chat customizável que fiz para ser utilizado na Twitch a
 ### 5. Agora é só ir alterando as propriedades e configurações, se quiser pode utilizar a sessão **Test** para visualizar suas alterações.
 
 ![4-editado](https://user-images.githubusercontent.com/7824893/179402047-1292da55-030e-4283-899a-49e935183f6a.jpg)
+
+## Exemplos do que podemos customizar:
+Eu disse exemplos, não disse que seriam bonitos.
+
+https://user-images.githubusercontent.com/7824893/179403115-330592b7-1a1d-4cea-adf1-6c86bff62127.mp4
+
+https://user-images.githubusercontent.com/7824893/179403120-9be4eb21-59a7-4887-8155-76cc73c716ee.mp4
+
+https://user-images.githubusercontent.com/7824893/179403123-58e81b8a-f94f-4580-a161-371cc74dfb26.mp4
+
+https://user-images.githubusercontent.com/7824893/179403128-3f27a832-6838-4408-ae04-05aa8ca77d60.mp4
+
+https://user-images.githubusercontent.com/7824893/179403134-6de42d55-005d-4a60-83fb-311de209078d.mp4
