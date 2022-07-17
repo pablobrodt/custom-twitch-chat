@@ -1,5 +1,7 @@
 # custom-twitch-chat
 
+Bem vindos, esse é um chat customizável que fiz para ser utilizado na Twitch através dos overlays da Streamelements. Qualquer sugestão de customização é bem vinda, podem utilizar a aba de issues ou me procurar via discord (plaabo#1086) para qualquer sugestão de melhoria ou de qualquer idéia diferentona sobre a customização deste chat ou de algum novo widget personalizado.
+
 ## Como usar
 
 ### 1. Crie um novo overlay no seu [painel da Streamelements](https://streamelements.com/dashboard/overlays)
