@@ -2,6 +2,14 @@
 
 Bem vindos, esse é um chat customizável que fiz para ser utilizado na Twitch através dos overlays da Streamelements. Qualquer sugestão de customização é bem vinda, podem utilizar a aba de issues ou me procurar via [discord](https://discordapp.com/users/349678960659136524) para qualquer sugestão de melhoria ou de qualquer idéia diferentona sobre a customização deste chat ou de algum novo widget personalizado.
 
+  - [Como usar](#como-usar)
+    - [1. Crie um novo overlay no seu painel da Streamelements](#1-crie-um-novo-overlay-no-seu-painel-da-streamelements)
+    - [2. Adicione um Custom Widget](#2-adicione-um-custom-widget)
+    - [3. Abra o editor do seu Custom Widget](#3-abra-o-editor-do-seu-custom-widget)
+    - [4. Copie os conteudos dos arquivos chat.html, style.css, script.js e fields.json para as respectivas abas.](#4-copie-os-conteudos-dos-arquivos-chathtml-stylecss-scriptjs-e-fieldsjson-para-as-respectivas-abas)
+    - [5. Agora é só ir alterando as propriedades e configurações, se quiser pode utilizar a sessão Test para visualizar suas alterações.](#5-agora-é-só-ir-alterando-as-propriedades-e-configurações-se-quiser-pode-utilizar-a-sessão-test-para-visualizar-suas-alterações)
+  - [Exemplos do que podemos customizar:](#exemplos-do-que-podemos-customizar)
+
 ## Como usar
 
 ### 1. Crie um novo overlay no seu [painel da Streamelements](https://streamelements.com/dashboard/overlays)
