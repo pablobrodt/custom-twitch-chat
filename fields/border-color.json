@@ -1,8 +1,0 @@
-{
-  "placeholderContainerBorderColor": {
-    "type": "colorpicker",
-    "label": "Border Color",
-    "value": "rgba(255,255,255,1)",
-    "group": "placeholderGroup"
-  }
-}
